@@ -1,9 +1,10 @@
 import yfinance as yf
 
 
-def main():
+# I'm sorry if this is a bit unreadable and chaotic
+def fetch_stock(ticker):
 
-    userinput = input("Ticker symbol $: ")
+    userinput = ticker
     if userinput.isalpha():
         data = yf.Ticker(userinput)
         data = data.history(
@@ -16,5 +17,4 @@ def main():
     else:
         print("Input must be Alphanumeric")
 
-
-main()
+    return data

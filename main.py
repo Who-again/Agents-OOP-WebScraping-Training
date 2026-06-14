@@ -1,4 +1,5 @@
 import json
+from webscraper import fetch_stock
 
 
 class Agent:
@@ -59,24 +60,34 @@ class Agent:
 
             self.save_diary()
 
+    def save_vault(
+        self,
+        ticker,
+    ):
+        market_data = fetch_stock(ticker)
+        filename = "_Vault.json"
+
+        try:
+            with open(filename, "r") as file:
+                vault_data = json.load(file)
+
+        except FileNotFoundError:
+            vault_data = {}
+
+        vault_data[ticker] = market_data
+
+        with open(filename, "w") as file:
+            json.dump(vault_data, file, indent=4)
+
 
 def main():
 
     agent_a = Agent("ClaudeClaw", 1000)
-    agent_b = Agent("GemmaClaw", 1000)
-    agent_c = Agent("GPTClaw", 1000)
+    # agent_a.load_diary()
+    # agent_a.print_status()
+    # agent_a.save_diary()
 
-    agent_a.load_diary()
-    agent_b.load_diary()
-    agent_c.load_diary()
-
-    agent_b.print_status()
-    agent_a.print_status()
-    agent_c.print_status()
-
-    agent_a.save_diary()
-    agent_b.save_diary()
-    agent_c.save_diary()
+    agent_a.save_vault("NVDA")
 
 
 main()
