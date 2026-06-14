@@ -60,34 +60,43 @@ class Agent:
 
             self.save_diary()
 
-    def save_vault(
+
+class Vault:
+    def __init__(
+        self,
+    ):
+        self.filename = "_Vault.json"  # Its self explanatory, this will be the file name of the JSON file for the ticker data
+
+    def SaveVault(
         self,
         ticker,
     ):
         market_data = fetch_stock(ticker)
-        filename = "_Vault.json"
 
         try:
-            with open(filename, "r") as file:
+            with open(self.filename, "r") as file:
                 vault_data = json.load(file)
 
         except FileNotFoundError:
-            vault_data = {}
+            vault_data = {}  # If the file doesn't exist, the vault_data will be pre-asigned with an empty dictionary that's ready to be used
 
-        vault_data[ticker] = market_data
+        vault_data[ticker] = (
+            market_data  # Here we can see the empty vault_data be being assigned with a ticker and the ticker's market data
+        )
 
-        with open(filename, "w") as file:
+        with open(self.filename, "w") as file:
             json.dump(vault_data, file, indent=4)
 
 
 def main():
 
+    _vault = Vault()
     agent_a = Agent("ClaudeClaw", 1000)
+
+    _vault.SaveVault("AXP")  # Insert Ticker here
     # agent_a.load_diary()
     # agent_a.print_status()
     # agent_a.save_diary()
-
-    agent_a.save_vault("NVDA")
 
 
 main()
