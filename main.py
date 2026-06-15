@@ -1,5 +1,6 @@
 import json
 from webscraper import fetch_stock
+from tickerinput import ticker_input
 
 
 class Agent:
@@ -60,6 +61,21 @@ class Agent:
 
             self.save_diary()
 
+    def check_vault(
+        self,
+    ):
+        try:
+            filename = "_Vault.json"
+            ticker, i, data = ticker_input()
+
+            with open(filename, "r") as file:
+                vault_data = json.load(file)
+
+                print(vault_data[ticker][i][data])
+
+        except FileNotFoundError:
+            print("Vault does not exist")
+
 
 class Vault:
     def __init__(
@@ -93,7 +109,9 @@ def main():
     _vault = Vault()
     agent_a = Agent("ClaudeClaw", 1000)
 
-    _vault.SaveVault("AXP")  # Insert Ticker here
+    agent_a.check_vault()
+
+    # _vault.SaveVault("AAPL")  # Insert Ticker here
     # agent_a.load_diary()
     # agent_a.print_status()
     # agent_a.save_diary()

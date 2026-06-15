@@ -9,7 +9,7 @@ def fetch_stock(ticker):
     if userinput.isalpha():
         data = yf.Ticker(userinput)
         data = data.history(
-            period="7d"
+            period="1d"
         )  #   Fetches the history of inputted ticker symbol and its period
         data = data.reset_index()  #   Resets the dataframe's index which makes it use the default one, so when you get the finished data, the Date (or first column) column will still exist
         data["Date"] = data["Date"].astype(str)
