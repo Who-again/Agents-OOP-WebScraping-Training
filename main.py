@@ -112,9 +112,9 @@ def main():
     agent_a.check_vault()
 
     # _vault.SaveVault("AAPL")  # Insert Ticker here
-    # agent_a.load_diary()
-    # agent_a.print_status()
-    # agent_a.save_diary()
+    agent_a.load_diary()
+    agent_a.print_status()
+    agent_a.save_diary()
 
 
 main()
